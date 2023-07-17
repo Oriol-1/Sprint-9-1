@@ -49,11 +49,11 @@ export const Navbar = () => {
                 <Box flex={1} />
 
 
-                <NextLink href="/login" passHref legacyBehavior>
+                {/* <NextLink href="/login" passHref legacyBehavior>
                 <Button>
                     Login
                 </Button>
-                </NextLink>
+                </NextLink> */}
 
 
                 <NextLink href="/cart" passHref>

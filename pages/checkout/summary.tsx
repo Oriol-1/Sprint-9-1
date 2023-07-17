@@ -1,11 +1,11 @@
+import { useContext } from "react";
+import NextLink from 'next/link';
 import CarList from "@/components/cart/CarList"
 import OrderSummary from "@/components/cart/OrderSummary"
 import { CartContext } from "@/components/context/cart";
 import { ShopLayout } from "@/components/layouts"
 import { countries } from "@/utils";
 import { Link, Box, Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material"
-import NextLink from 'next/link';
-import { useContext } from "react";
 
 
 
@@ -36,9 +36,9 @@ const SummaryPage = () => {
                         <Box display='flex' justifyContent='space-between'>
                             <Typography variant='subtitle1'>Dirección de entrega</Typography>
                             <NextLink href='/checkout/address' passHref>
-                                <Link underline='always'>
+                              
                                     Editar
-                                </Link>
+                                
                             </NextLink>
                         </Box>
 
@@ -55,9 +55,9 @@ const SummaryPage = () => {
 
                         <Box display='flex' justifyContent='end'>
                             <NextLink href='/cart' passHref>
-                                <Link underline='always'>
+                                
                                     Editar
-                                </Link>
+                            
                             </NextLink>
                         </Box>
 

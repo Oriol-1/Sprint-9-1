@@ -18,6 +18,8 @@ type CartActionType =
          subTotal: number;
          tax: number;
          total: number;
+         
+        
       }
    }
 

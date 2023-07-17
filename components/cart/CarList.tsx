@@ -30,7 +30,7 @@ const CarList:FC<Props> = ({editable= false}) => {
                         <Grid item xs={3}>
                             {/* TODO: llevar a la página del producto */}
                             <NextLink href={`/products/${ product.slug }`} passHref>
-                                <Link>
+                                {/* <Link> */}
                                     <CardActionArea>
                                         <CardMedia 
                                             image={ `/products/${ product.image }` }
@@ -38,7 +38,7 @@ const CarList:FC<Props> = ({editable= false}) => {
                                             sx={{ borderRadius: '5px' }}
                                         />
                                     </CardActionArea>
-                                </Link>
+                                {/* </Link> */}
                             </NextLink>
                         </Grid>
                         <Grid item xs={7}>
