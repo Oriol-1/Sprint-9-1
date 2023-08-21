@@ -1,7 +1,8 @@
 import { FC, useReducer, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useSession, signOut } from "next-auth/react"
 import { AuthContext, authReducer } from './';
-import Cookies from 'js-cookie';
+import Cookie from 'js-cookie';
 import axios from 'axios';
 
 import { tesloApi } from '@/api';
@@ -22,24 +23,29 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
 
     const [state, dispatch] = useReducer( authReducer, AUTH_INITIAL_STATE );
+    const { data, status } = useSession()
     const router = useRouter();
 
     useEffect(() => {
-        checkToken();
-    }, [])
+        if (status === 'authenticated') {
+            // console.log({user: data?.user});
+            dispatch({ type: '[Auth] - Login', payload: data?.user as IUser });
+        }
+        
+      }, [ status, data ])
 
     const checkToken = async() => {
-        if ( !Cookies.get('token') ) {
+        if ( !Cookie.get('token') ) {
             return;
         }
 
         try {
             const { data } = await tesloApi.get('/user/validate-token');
             const { token, user } = data;
-            Cookies.set('token', token );
+            Cookie.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
         } catch (error) {
-            Cookies.remove('token');
+            Cookie.remove('token');
         }
     }
     
@@ -50,7 +56,7 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/login', { email, password });
             const { token, user } = data;
-            Cookies.set('token', token );
+            Cookie.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
             return true;
         } catch (error) {
@@ -64,7 +70,7 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/register', { name, email, password });
             const { token, user } = data;
-            Cookies.set('token', token );
+            Cookie.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
             return {
                 hasError: false
@@ -87,9 +93,21 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
 
 
     const logout = () => {
-        Cookies.remove('token');
-        Cookies.remove('cart');
-        router.reload();
+        Cookie.remove('cart');
+        Cookie.remove('firstName');
+        Cookie.remove('lastName');
+        Cookie.remove('email');
+        Cookie.remove('phone');
+        Cookie.remove('address');
+        Cookie.remove('zip');
+
+        signOut();
+        
+        
+        // Cookie.remove('token');
+
+
+        // router.reload();
     }
 
 

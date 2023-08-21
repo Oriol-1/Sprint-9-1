@@ -1,7 +1,7 @@
 
 
-import { CartState, ShippingAddress } from './';
-import { ICartroduct } from '../../interfaces';
+import { CartState} from './';
+import { ICartroduct, ShippingAddress } from '../../interfaces';
 
 
 type CartActionType = 
@@ -22,7 +22,7 @@ type CartActionType =
         
       }
    }
-
+   | { type: '[Cart] - Order complete' }
 
    export const cartReducer = ( state: CartState, action: CartActionType ): CartState => {
 

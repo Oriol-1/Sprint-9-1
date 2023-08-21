@@ -2,6 +2,8 @@
 import { useContext, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+import { getSession, signIn } from 'next-auth/react';
 import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material';
 import AuthLayout from '@/components/layouts/AuthLayout';
 import { useForm } from 'react-hook-form';
@@ -17,33 +19,36 @@ type FormData = {
 };
 
 
-  
 const RegisterPage = () => {
 
-  const router = useRouter();
-  const { registerUser } = useContext( AuthContext );
+    const router = useRouter();
+    const { registerUser } = useContext( AuthContext );
 
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
-  const [ showError, setShowError ] = useState(false);
-  const [ errorMessage, setErrorMessage ] = useState('');
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [ showError, setShowError ] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('');
 
-  const onRegisterForm = async( {  name, email, password }: FormData ) => {
-      
-      setShowError(false);
-      const { hasError, message } = await registerUser(name, email, password);
+    const onRegisterForm = async( {  name, email, password }: FormData ) => {
+        
+        setShowError(false);
+        const { hasError, message } = await registerUser(name, email, password);
 
-      if ( hasError ) {
-          setShowError(true);
-          setErrorMessage( message! );
-          setTimeout(() => setShowError(false), 3000);
-          return;
-      }
-      
-      // Todo: navegar a la pantalla que el usuario estaba
-      const destination = router.query.p?.toString() || '/';
-        router.replace(destination);
-  }
+        if ( hasError ) {
+            setShowError(true);
+            setErrorMessage( message! );
+            setTimeout(() => setShowError(false), 3000);
+            return;
+        }
+        
+        // Todo: navegar a la pantalla que el usuario estaba
+        // const destination = router.query.p?.toString() || '/';
+        // router.replace(destination);
+
+        await signIn('credentials',{ email, password });
+
+    }
+
   return (
     <AuthLayout title={'Ingresar'}>
     <form onSubmit={ handleSubmit(onRegisterForm) } noValidate>
@@ -136,6 +141,29 @@ const RegisterPage = () => {
 
 </AuthLayout>
   )
+}
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+    
+    const session = await getSession({ req });
+    // console.log({session});
+
+    const { p = '/' } = query;
+
+    if ( session ) {
+        return {
+            redirect: {
+                destination: p.toString(),
+                permanent: false
+            }
+        }
+    }
+
+
+    return {
+        props: { }
+    }
 }
 
 export default RegisterPage

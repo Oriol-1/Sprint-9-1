@@ -1,5 +1,6 @@
 // index.tsx
 import type { NextPage } from 'next';
+
 import { ShopLayout } from '@/components/layouts';
 import ProductList from '../components/products/ProductList';
 import Slider from '@/components/Slider';

@@ -3,7 +3,7 @@ import { ShopLayout } from "@/components/layouts"
 import { Box, Button, Grid, TextField, Typography } from "@mui/material"
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 
@@ -33,9 +33,22 @@ const AddressPage = () => {
     const router = useRouter();
     const { updateAddress} = useContext( CartContext );
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-       defaultValues: getAddressFromCookies() 
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
+        defaultValues: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            address: '',
+            zip: '',
+        }
     });
+
+    useEffect(() => {
+        reset(getAddressFromCookies() );
+
+    }, [reset])
+    
 
     const onSubmitAddress = ( data: FormData ) => {
         updateAddress( data );
