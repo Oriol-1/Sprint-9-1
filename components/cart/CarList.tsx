@@ -7,10 +7,11 @@ import { ItemCounter } from "../ui";
 // import { DeleteForever } from "@mui/icons-material";
 import { FC, useContext } from "react";
 import { CartContext } from "../context/indext";
-import { ICartroduct } from "../interfaces";
+import { ICartroduct, IOrderItem } from "../interfaces";
 
 interface Props{
     editable?:boolean;
+    products?: IOrderItem[];
 
 }
 const CarList:FC<Props> = ({editable= false}) => {

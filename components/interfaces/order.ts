@@ -26,6 +26,7 @@ export interface IOrderItem {
     slug     : string;
     image    : string;
     price    : number;
+     
     // gender   : string;
 }
 

@@ -1,10 +1,10 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react';
 import Cookie from 'js-cookie';
+import axios from 'axios';
 
 
 import { ICartroduct, IOrder, ShippingAddress, } from '../../interfaces';
 import { CartContext, cartReducer } from './';
-import axios from 'axios';
 import { tesloApi } from '@/api';
 
 export interface CartState {
@@ -167,7 +167,9 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
 
         try {
             
-            const { data } = await tesloApi.post<IOrder>('/orders', body);
+            const { data } = await tesloApi.post<IOrder>('/orders/',body)
+       
+
 
             dispatch({ type: '[Cart] - Order complete' });
 

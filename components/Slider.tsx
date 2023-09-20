@@ -31,12 +31,14 @@ const Slider: React.FC<SliderProps> = ({ slides }) => {
       {slides.map((slide, index) => (
        <div key={index} className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`}>
        <div className={styles.slideImage}>
-         <Image
-           src={slide.imageSrc} 
-           alt={slide.title} 
-           layout="fill"
-           objectFit="cover"
-         />
+       <Image
+    src={slide.imageSrc} 
+    alt={slide.title} 
+    layout="fill"
+    objectFit="cover"  // Consider removing if it's no longer supported
+    sizes="(max-width: 640px) 640px, (max-width: 768px) 768px, (max-width: 1024px) 1024px, 1280px"  // Example sizes; adjust as per your design
+    priority={index === 0}  // Only for the first image; adjust if needed
+/>
        </div>
        <div className={styles.text}>
          <h1>{slide.title}</h1>

@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import NextLink from 'next/link';
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 import CarList from "@/components/cart/CarList"
 import OrderSummary from "@/components/cart/OrderSummary"
+import { Box, Button, Card, CardContent, Chip, Divider, Grid, Typography } from "@mui/material"
 
 import { CartContext } from "@/components/context/cart";
 import { ShopLayout } from "@/components/layouts"
 // import { countries } from "@/utils";
-import { Box, Button, Card, CardContent, Chip, Divider, Grid, Typography } from "@mui/material"
-import Cookies from "js-cookie";
 
 
 

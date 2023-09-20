@@ -1,3 +1,3 @@
-export const SHOP_CONSTANTS ={
+export const SHOP_CONSTANTS = {
     validType:['console','art' ]
 }

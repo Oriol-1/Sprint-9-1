@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { dbUsers } from "../../../database";
 
 
+
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -16,16 +17,11 @@ export default NextAuth({
         password: { label: 'Contraseña:', type: 'password', placeholder: 'Contraseña'  },
       },
       async authorize(credentials) {
-        const user = await dbUsers.checkUserEmailPassword( credentials!.email, credentials!.password );
-        if (user) {
-          return { 
-            id: user._id, 
-            email: user.email, 
-            role: user.role, 
-            name: user.name
-          };
-        }
-        return null;
+        console.log({credentials})
+        // return { name: 'Juan', correo: 'juan@google.com', role: 'admin' };
+
+        return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password) as any;
+
       }
     }),
     GithubProvider({
