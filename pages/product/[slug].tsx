@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useContext, useState, useEffect } from "react";
 import { ShopLayout } from "@/components/layouts";
 import { CartContext } from "@/components/context/cart/CartContext";
@@ -7,7 +7,7 @@ import ProductSlideshow from "@/components/products/ProductSlideshow";
 import SizeSelector from "@/components/products/SizeSelector";
 import { ItemCounter } from "@/components/ui";
 import { dbProducts } from "@/database";
-import { ICartroduct, IProduct, ValidSizes } from "@/components/interfaces";
+import { ICartProduct, IProduct, ValidSizes } from "@/components/interfaces";
 import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -16,39 +16,39 @@ interface Props{
   product: IProduct;
 }
 
-const ProductPage:NextPage<Props> = ({product}) => {
+const ProductPage: NextPage<Props> = ({product}) => {
   const router = useRouter();
-  const { addProductToCart } = useContext( CartContext )
+  const { addProductToCart } = useContext(CartContext);
   
-  const [tempCartProduct, setTempCartProduct] = useState<ICartroduct>({
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
     price: product.price,
-    size: undefined, 
+    size: product.type === 'console' ? 'medium' : undefined, 
     slug: product.slug,
-    title:product.title,
-    quantity:1,
-  })
+    title: product.title,
+    quantity: 1,
+  });
   
   const [error, setError] = useState<string | null>(null);
 
-  const selectedSize = ( size: ValidSizes ) => {
-    setTempCartProduct( currentProduct => ({
+  const selectedSize = (size: ValidSizes) => {
+    setTempCartProduct(currentProduct => ({
       ...currentProduct,
       size
     }));
   }
 
-  const onUpdateQuantity = ( quantity: number ) => {
-    setTempCartProduct( currentProduct => ({
+  const onUpdateQuantity = (quantity: number) => {
+    setTempCartProduct(currentProduct => ({
       ...currentProduct,
       quantity
     }));
   }
 
   const onAddProduct = () => {
-    if ( product.type === 'art' && !tempCartProduct.size ) {
-        setError('Por favor, selecciona una talla antes de agregar al carrito. tempCartProduct.size is currently ' + tempCartProduct.size);
+    if (product.type === 'art' && !tempCartProduct.size) {
+        setError('Por favor, selecciona una talla antes de agregar al carrito.');
         return;
     }
 
@@ -74,34 +74,38 @@ const ProductPage:NextPage<Props> = ({product}) => {
             <Typography variant="subtitle1" component='p'>{product.description}</Typography>
             <Typography variant="h2" component='h2'>{product.price} €</Typography>
 
-            {/* cantidad */}
+            {/* Cantidad */}
             <Box sx={{my:2}}>
-              <Typography variant="subtitle2" component='h3'>Cantidad</Typography>
-              <ItemCounter 
-              currentValue={ tempCartProduct.quantity }
-                updatedQuantity={ onUpdateQuantity  }
-                maxValue={ product.inStock > 10 ? 10: product.inStock } />
-              <SizeSelector
-                sizes= {product.size}
-                onSelectedSize={ selectedSize }
-              />
-            </Box>
+    <Typography variant="subtitle2" component='h3'>Cantidad</Typography>
+    <ItemCounter 
+        currentValue={tempCartProduct.quantity}
+        updatedQuantity={onUpdateQuantity}
+        maxValue={product.inStock > 10 ? 10 : product.inStock} />
+    {product.type === 'art' && (
+        <SizeSelector
+            sizes={product.size}
+            onSelectedSize={selectedSize}
+        />
+    )}
+</Box>
 
             {/* Mensaje de error */}
             {
                 error && (
-                    <div className="error-message">{error}</div>
+                    <div className="error-message" style={{color: 'red', fontWeight: 'bold'}}>
+                        {error}
+                    </div>
                 )
             }
 
-            {/* agregar carrito */}
+            {/* Agregar al carrito */}
             {
               (product.inStock > 0)
                ? (
                   <Button 
                     color="secondary" 
                     className='circular-btn'
-                    onClick={ onAddProduct }
+                    onClick={onAddProduct}
                   >
                     {
                       tempCartProduct.size
@@ -116,9 +120,9 @@ const ProductPage:NextPage<Props> = ({product}) => {
             }
 
 
-            {/* Descripcion */}
+            {/* Descripción */}
             <Box sx={{my:2}}>
-              <Typography variant="subtitle2" component='h3'>Descripcion</Typography>
+              <Typography variant="subtitle2" component='h3'>Descripción</Typography>
               <Typography variant="body2">{product.description}</Typography>
             </Box>
           </Box>
@@ -128,11 +132,11 @@ const ProductPage:NextPage<Props> = ({product}) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async (ctx)=>{
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
     const productSlugs = await dbProducts.getAllProductSlugs();
 
     return {
-        paths: productSlugs.map( ({ slug }) => ({
+        paths: productSlugs.map(({slug}) => ({
             params: {
                 slug
             }
@@ -141,12 +145,12 @@ export const getStaticPaths: GetStaticPaths = async (ctx)=>{
     }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   
-    const { slug = '' } = params as { slug: string };
-    const product = await dbProducts.getProductBySlug( slug );
+    const {slug = ''} = params as {slug: string};
+    const product = await dbProducts.getProductBySlug(slug);
 
-    if ( !product ) {
+    if (!product) {
         return {
             redirect: {
                 destination: '/',

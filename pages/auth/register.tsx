@@ -1,15 +1,15 @@
 
 import { useContext, useState } from 'react';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
+import NextLink from 'next/link';
 import { getSession, signIn } from 'next-auth/react';
-import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material';
-import AuthLayout from '@/components/layouts/AuthLayout';
 import { useForm } from 'react-hook-form';
+import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material';
 import { ErrorOutline } from '@mui/icons-material';
-import { validations } from '@/utils';
 import { AuthContext } from '@/components/context/auth/AuthContext';
+import AuthLayout from '@/components/layouts/AuthLayout';
+import { validations } from '@/utils';
 
 
 type FormData = {

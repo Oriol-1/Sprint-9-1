@@ -1,9 +1,9 @@
 // dbProducts.ts
 import { db } from './';
 import { Product } from '../models';
-import { IPproduct } from '@/components/interfaces';
+import { IProduct } from '@/components/interfaces';
 
-export const getProductBySlug = async(slug: string): Promise<IPproduct | null> =>{
+export const getProductBySlug = async(slug: string): Promise<IProduct | null> =>{
     // console.log("Buscando producto con slug: ", slug); // Esta línea imprimirá el valor de "slug" 
 
     await db.connect();
@@ -36,7 +36,7 @@ export const getAllProductSlugs = async(): Promise<ProductSlug[]>  => {
     return slugs;
 }
 
-export const getProductsByTerm = async ( term:string): Promise<IPproduct[]> => {
+export const getProductsByTerm = async ( term:string): Promise<IProduct[]> => {
     
     term = term.toString().toLowerCase();
 
@@ -53,7 +53,7 @@ export const getProductsByTerm = async ( term:string): Promise<IPproduct[]> => {
 }
 
 
-export const getAllProducts = async(): Promise<IPproduct[]> => {
+export const getAllProducts = async(): Promise<IProduct[]> => {
 
     await db.connect();
     const products = await Product.find().lean();

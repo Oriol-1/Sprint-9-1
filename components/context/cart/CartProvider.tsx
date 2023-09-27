@@ -3,13 +3,13 @@ import Cookie from 'js-cookie';
 import axios from 'axios';
 
 
-import { ICartroduct, IOrder, ShippingAddress, } from '../../interfaces';
+import { ICartProduct, IOrder, ShippingAddress, } from '../../interfaces';
 import { CartContext, cartReducer } from './';
 import { tesloApi } from '@/api';
 
 export interface CartState {
     isLoaded: boolean;
-    cart: ICartroduct[];
+    cart: ICartProduct[];
     numberOfItems: number;
     subTotal: number;
     tax: number;
@@ -103,7 +103,7 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
   
   
   
-      const addProductToCart = ( product: ICartroduct ) => {
+      const addProductToCart = ( product: ICartProduct ) => {
        
           const productInCart = state.cart.some( p => p._id === product._id );
           if ( !productInCart ) return dispatch({ type: '[Cart] - Update products in cart', payload: [...state.cart, product ] })
@@ -125,11 +125,11 @@ export const CartProvider: FC<CartProviderProps> = ({ children }) => {
   
       }
   
-      const updateCartQuantity = ( product: ICartroduct ) => {
+      const updateCartQuantity = ( product: ICartProduct ) => {
           dispatch({ type: '[Cart] - Change cart quantity', payload: product });
       }
   
-      const removeCartProduct = ( product: ICartroduct ) => {
+      const removeCartProduct = ( product: ICartProduct ) => {
           dispatch({ type: '[Cart] - Remove product in cart', payload: product });
       }
     const updateAddress = ( address: ShippingAddress ) => {

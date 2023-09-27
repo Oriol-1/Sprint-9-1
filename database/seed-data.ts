@@ -1,48 +1,36 @@
 import bcrypt from 'bcryptjs';
 
-// Definición de la interfaz de producto base
-interface SeedProduct {
+// Usando las definiciones de interface/products.ts
+type ISValidPlatforms = 'Game Boy' | 'Game Boy Classic' | 'Retro Console' | 'Sega Game Gear' | 'Sony PSP 2000';
+type ValidTypes = 'console' | 'art';
+type ValidSizes = 'small' | 'medium' | 'large';
+
+interface IProduct {
+    _id?: string; // Agregado el campo _id como opcional
     description: string;
     images: string[];
     inStock: number;
     price: number;
-    platform: ValidPlatforms[];
+    platform: ISValidPlatforms[];
     slug: string;
     tags: string[];
     title: string;
     type: ValidTypes;
+    size?: ValidSizes[]; // 'size' es un array de tamaños válidos
+    subject?: string;
 }
-
-// Definición de la interfaz de producto de arte, que extiende a la de producto base
-interface ArtProduct extends SeedProduct {
-    subject: string;
-    type: 'art';
-    size: ValidSizes[]; // Ahora 'size' es un array
-}
-
-// Definición del tipo Producto, que puede ser tanto un producto base como un producto de arte
-type Product = ArtProduct | SeedProduct ;
-
-
 
 interface SeedUser {
-    name     : string;
-    email    : string;
-    password : string;
-    role     : 'admin'|'client'
+    name: string;
+    email: string;
+    password: string;
+    role: 'admin' | 'client';
 }
 
-
-
-// Definición de la interfaz para los datos semilla
 interface SeedData {
     users: SeedUser[];
-    products: Product[],
+    products: IProduct[];
 }
-
-type ValidPlatforms = 'Game Boy' | 'Game Boy Classic' | 'Retro Console' | 'Sega Game Gear' | 'Sony PSP 2000';
-type ValidTypes = 'console' | 'art';
-type ValidSizes = 'small' | 'medium' | 'large';
 
 // Definición de los datos semilla
 export const initialData: SeedData = {

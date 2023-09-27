@@ -2,7 +2,7 @@ import { FC, useReducer, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, signOut } from "next-auth/react"
 import { AuthContext, authReducer } from './';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import { tesloApi } from '@/api';
@@ -35,17 +35,17 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
       }, [ status, data ])
 
     const checkToken = async() => {
-        if ( !Cookie.get('token') ) {
+        if ( !Cookies.get('token') ) {
             return;
         }
 
         try {
             const { data } = await tesloApi.get('/user/validate-token');
             const { token, user } = data;
-            Cookie.set('token', token );
+            Cookies.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
         } catch (error) {
-            Cookie.remove('token');
+            Cookies.remove('token');
         }
     }
     
@@ -56,7 +56,7 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/login', { email, password });
             const { token, user } = data;
-            Cookie.set('token', token );
+            Cookies.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
             return true;
         } catch (error) {
@@ -70,7 +70,7 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/register', { name, email, password });
             const { token, user } = data;
-            Cookie.set('token', token );
+            Cookies.set('token', token );
             dispatch({ type: '[Auth] - Login', payload: user });
             return {
                 hasError: false
@@ -93,18 +93,19 @@ export const AuthProvider:FC<{children: React.ReactNode}> = ({ children }) => {
 
 
     const logout = () => {
-        Cookie.remove('cart');
-        Cookie.remove('firstName');
-        Cookie.remove('lastName');
-        Cookie.remove('email');
-        Cookie.remove('phone');
-        Cookie.remove('address');
-        Cookie.remove('zip');
+        
+        Cookies.remove('cart');
+        Cookies.remove('firstName');
+        Cookies.remove('lastName');
+        Cookies.remove('email');
+        Cookies.remove('phone');
+        Cookies.remove('address');
+        Cookies.remove('zip');
 
         signOut();
         
         
-        // Cookie.remove('token');
+        // Cookies.remove('token');
 
 
         // router.reload();

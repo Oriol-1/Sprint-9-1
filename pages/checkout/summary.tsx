@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import CarList from "@/components/cart/CarList"
@@ -50,28 +50,28 @@ const SummaryPage = () => {
 
     const { firstName, lastName, email, phone,  address, zip } = shippingAddress;
 
-  return (
-    <ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'}>
-        <Typography variant='h1' component='h1'>Resumen de la orden</Typography>
-
-        <Grid container>
-            <Grid item xs={ 12 } sm={ 7 }>
-                <CarList />
-            </Grid>
-            <Grid item xs={ 12 } sm={ 5 }>
-                <Card className='summary-card'>
-                    <CardContent>
-                        <Typography variant='h2'>Resumen ({numberOfItems} { numberOfItems === 1 ? 'producto':'productos' })</Typography>
-                        <Divider sx={{ my:1 }} />
-
-                        <Box display='flex' justifyContent='space-between'>
-                            <Typography variant='subtitle1'>Dirección de entrega</Typography>
-                            <NextLink href='/checkout/address' passHref>
-                            
-                                    Editar
-                             
-                            </NextLink>
-                        </Box>
+    return (
+        <ShopLayout title='Resumen de orden' pageDescription={'Resumen de la orden'}>
+            <Typography variant='h1' component='h1'>Resumen de la orden</Typography>
+    
+            <Grid container>
+                <Grid item xs={ 12 } sm={ 7 }>
+                    <CarList />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 5 }>
+                    <Card className='summary-card'>
+                        <CardContent>
+                            <Typography variant='h2'>Resumen ({numberOfItems} { numberOfItems === 1 ? 'producto':'productos' })</Typography>
+                            <Divider sx={{ my:1 }} />
+    
+                            <Box display='flex' justifyContent='space-between'>
+                                <Typography variant='subtitle1'>Dirección de entrega</Typography>
+                                <Link href='/checkout/address' passHref>
+                                 
+                                        Editar
+                                   
+                                </Link>
+                            </Box>
 
                         
                         <Typography>{ firstName } { lastName }</Typography>
@@ -85,16 +85,16 @@ const SummaryPage = () => {
                         <Divider sx={{ my:1 }} />
 
                         <Box display='flex' justifyContent='end'>
-                            <NextLink href='/cart' passHref>
-                                
+                            <Link href='/cart' passHref>
+                               
                                     Editar
-                            
-                            </NextLink>
+                               
+                            </Link>
                         </Box>
 
                         <OrderSummary />
 
-                          <Box sx={{ mt: 3 }} display="flex" flexDirection="column">
+                        <Box sx={{ mt: 3 }} display="flex" flexDirection="column">
                             <Button
                                 color="secondary"
                                 className='circular-btn'

@@ -6,11 +6,7 @@ export interface ICartProduct {
     price: number;
     slug: string;
     title: string;
-    quantity:number;
-    
-}
-
-export interface ICartroduct extends ICartProduct {
+    quantity: number;
     size?: ValidSizes; 
 }
 

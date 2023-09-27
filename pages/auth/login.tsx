@@ -1,14 +1,14 @@
 
 import {  useEffect, useState } from 'react';
-import NextLink from 'next/link';
 import { GetServerSideProps } from 'next';
+import NextLink from 'next/link';
 import { signIn, getSession, getProviders } from 'next-auth/react';
-import AuthLayout from '@/components/layouts/AuthLayout';
-import { useForm } from 'react-hook-form';
 import { Box, Button, Chip, Grid, TextField, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 import { ErrorOutline } from '@mui/icons-material';
+import { useForm } from 'react-hook-form';
+import AuthLayout from '@/components/layouts/AuthLayout';
 import { validations } from '@/utils';
+import { useRouter } from 'next/router';
 
 
 
