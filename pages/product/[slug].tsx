@@ -48,7 +48,7 @@ const ProductPage: NextPage<Props> = ({product}) => {
 
   const onAddProduct = () => {
     if (product.type === 'art' && !tempCartProduct.size) {
-        setError('Por favor, selecciona una talla antes de agregar al carrito.');
+        setError('Por favor, selecciona un tamaño antes de agregar al carrito.');
         return;
     }
 
