@@ -1,5 +1,6 @@
 # Next.js Retro game
 Para correr localmente, se necesita la base de datos
+Antes de empezar, asegúrate de tener instalado Docker Desktop y MongoDB Compass.
 ```
 docker-compose up -d
 ```
@@ -8,11 +9,11 @@ docker-compose up -d
 
 
 
-## Configurar las variables de entorno
-Renombrar el archivo __.env.template__ a __.env__
-* MongoDB URL Local:
+## Configurar MongoDB
+
+* MongoDB URL para conectar usando MongoDB Compass:
 ```
-MONGO_URL=mongodb://localhost:27017/retrodb
+mongodb://localhost:27017
 ```
 
 * Reconstruir los modulos de node  y levantar Next
@@ -20,6 +21,14 @@ MONGO_URL=mongodb://localhost:27017/retrodb
 npm install
 npm run dev
 ```
+
+## Llenar la base de datos con información de pruebas
+
+Llamara:
+```
+http://localhost:3000/api/seed
+```
+
 
 
 ## Llenar la base de datos con información de pruebas
