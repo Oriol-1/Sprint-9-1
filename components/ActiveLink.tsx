@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from "next/router";
 import React, { CSSProperties } from 'react';
-import Link from "next/link"
+import NextLink from 'next/link';
 
 interface Props {
   text: string;
@@ -19,9 +19,9 @@ const ActiveLink: React.FC<Props> = ({ text, href, className }) => {
 
   // Añade la className al componente Link
   return (
-    <Link href={href} style={router.pathname === href ? style : undefined} className={className}>
+    <NextLink href={href} style={router.pathname === href ? style : undefined} className={className}>
       {text}
-    </Link>
+    </NextLink>
   );
 }
 

@@ -39,7 +39,23 @@ const columns: GridColDef[] = [
         sortable: false,
         renderCell: (params: GridRenderCellParams) => (
             <NextLink href={`/orders/${ params.row.orderId }`} passHref>
-                <Button variant='outlined' component={ Link }>Ver orden</Button>
+                <Button 
+                    variant='outlined' 
+                    role="button"
+                    sx={{ 
+                        textDecoration: 'none',
+                        color: 'black',
+                        '&:hover': {
+                            color: 'red',
+                            textDecoration: 'none',
+                        },
+                        '&:active': {
+                            textDecoration: 'none',
+                        }
+                    }}
+                >
+                    Ver orden
+                </Button>
             </NextLink>
         )
        

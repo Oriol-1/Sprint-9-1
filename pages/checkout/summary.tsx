@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import CarList from "@/components/cart/CarList"
@@ -66,11 +66,11 @@ const SummaryPage = () => {
     
                             <Box display='flex' justifyContent='space-between'>
                                 <Typography variant='subtitle1'>Dirección de entrega</Typography>
-                                <Link href='/checkout/address' passHref>
+                                <NextLink href='/checkout/address' passHref>
                                  
                                         Editar
                                    
-                                </Link>
+                                </NextLink>
                             </Box>
 
                         
@@ -85,11 +85,11 @@ const SummaryPage = () => {
                         <Divider sx={{ my:1 }} />
 
                         <Box display='flex' justifyContent='end'>
-                            <Link href='/cart' passHref>
+                            <NextLink href='/cart' passHref>
                                
                                     Editar
                                
-                            </Link>
+                            </NextLink>
                         </Box>
 
                         <OrderSummary />

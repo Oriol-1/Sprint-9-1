@@ -1,4 +1,4 @@
-import Link from "next/link"
+import NextLink from "next/link"
 import { ShopLayout } from '@/components/layouts'
 
 export default function HomePage() {
@@ -14,9 +14,9 @@ export default function HomePage() {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
 
       <h2>Ir  
-        <Link href="/servicios/servicio1">
+        <NextLink href="/servicios/servicio1">
          servicio1
-        </Link>
+        </NextLink>
       </h2>
         
         

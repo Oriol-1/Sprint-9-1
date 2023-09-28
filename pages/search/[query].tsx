@@ -1,15 +1,16 @@
 import type { NextPage, GetServerSideProps } from 'next';
-import { Typography,Box, Link } from '@mui/material';
+import { Typography,Box,  } from '@mui/material';
+import NextLink from 'next/link';
 
 import { ShopLayout } from '../../components/layouts';
 
 import ProductList from '@/components/products/ProductList';
 import { dbProducts } from '../../database';
-import { IPproduct } from '@/components/interfaces';
+import { IProduct } from '@/components/interfaces';
 
 
 interface Props {
-    products: IPproduct[];
+    products: IProduct[];
     foundProducts: boolean;
     query: string;
 }
@@ -41,21 +42,15 @@ const SearchPage: NextPage<Props> = ({ products, foundProducts, query }) => {
 
 
                     >
-                        {/* <Typography variant='h2' sx={{ mb: 1 }}>No encontramos ningún produto 
-                        <Typography variant='h2' sx={{ ml: 1 }} color="secondary" textTransform="capitalize">{ query } </Typography> Regresa a tienda a la
-                        <Link href='/'> Tienda</Link>
-                        
-                        </Typography> */}
+                     
                         <Typography variant='h2' sx={{ mb: 1 }}>No encontramos ningún produto
                        
                         </Typography>
 
                         <Typography variant='h2' sx={{ ml: 1 }} color="secondary" textTransform="capitalize">{ query } </Typography> Regresa a tienda la
-                        <Link color={
-                            (theme) => theme.palette.secondary.main
-
-
-                        } href='/'> Tienda</Link>
+                        <Box sx={{ color: 'secondary.main' }}>
+                            <NextLink href='/'>Tienda</NextLink>
+                        </Box>
 
                        
                     </Box>

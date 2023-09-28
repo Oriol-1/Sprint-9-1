@@ -53,7 +53,7 @@ const createOrder = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
     const backendTotal = subTotal * (taxRate + 1);
     if (total !== backendTotal)
-      throw new Error('El total no cuadra con el monto');
+      throw new Error('El total no cuadra');
 
     const userId = await User.findOne({ email: session.user.email });
 

@@ -1,11 +1,11 @@
 import { initialData } from "@/database/seed-data"
-import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Link, Chip } from "@mui/material"
+import { Grid, Card, CardActionArea, CardMedia, Box, Typography, Chip } from "@mui/material"
 import { FC, useMemo, useState } from "react"
 import NextLink from 'next/link';
-import { IPproduct } from "../interfaces"
+import { IProduct } from "../interfaces"
 
 interface Props {
-  product: IPproduct;
+  product: IProduct;
 }
 
 const ProductCard: FC<Props> = ({ product }) => {
@@ -30,7 +30,7 @@ const ProductCard: FC<Props> = ({ product }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <NextLink href={`/product/${productSlug}`} passHref prefetch={false}>
-        <Link component="div">
+       
 
 
 
@@ -74,7 +74,7 @@ const ProductCard: FC<Props> = ({ product }) => {
               {product.price} Euros
             </Typography>
           </Box>
-        </Link>
+     
       </NextLink>
     </Grid>
   )

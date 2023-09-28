@@ -1,7 +1,7 @@
 
 import { useContext, useState } from 'react';
 import NextLink from 'next/link';
-import { AppBar, Box, Link, Toolbar, Typography, Button } from '@mui/material'
+import { AppBar, Box, Link, Toolbar, Typography, Button, Link as MuiLink } from '@mui/material'
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Badge from '@mui/material/Badge';
@@ -30,11 +30,11 @@ export const Navbar = () => {
         <AppBar>
             <Toolbar>
                 <NextLink href="/" passHref legacyBehavior>
-                    <Link display='flex' alignItems='center'>
+                <MuiLink style={{ display: 'flex', alignItems: 'center'  }} underline="none" component={'span'}>
                         <Typography variant='h6'>Rreto </Typography>
                         <Typography sx={{ ml: 0.9 }}>Shop</Typography>
 
-                    </Link>
+                        </MuiLink>
                 </NextLink>
 
                 <Box flex={1} />

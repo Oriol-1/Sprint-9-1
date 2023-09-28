@@ -1,4 +1,5 @@
 import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document'
+import NextLink from 'next/link';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -11,10 +12,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-        <link
+        <NextLink
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-/>
+>
+</NextLink>
         </Head>
         <body>
           <Main />
